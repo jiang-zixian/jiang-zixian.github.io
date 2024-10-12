@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>常用指令</title>
+    <link href="/2024/10/12/%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
+    <url>/2024/10/12/%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h2 id="访问git超时时"><a href="#访问git超时时" class="headerlink" title="访问git超时时"></a>访问git超时时</h2><p>取消系统代理</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash">git config --global --<span class="hljs-built_in">unset</span> http.proxy <br>git config --global --<span class="hljs-built_in">unset</span> https.proxy<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>常用实践技术</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>非C盘安装WSL2</title>
     <link href="/2024/10/11/%E9%9D%9EC%E7%9B%98%E5%AE%89%E8%A3%85WSL2/"/>
     <url>/2024/10/11/%E9%9D%9EC%E7%9B%98%E5%AE%89%E8%A3%85WSL2/</url>
