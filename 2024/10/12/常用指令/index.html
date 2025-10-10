@@ -27,7 +27,7 @@
 <meta property="og:description" content="访问git超时时（windows）取消系统代理 12git config --global --unset http.proxy git config --global --unset https.proxy  npm network error问题1npm config set registry https:&#x2F;&#x2F;registry.npmmirror.com  查看npm配置 1npm confi">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-10-12T07:37:10.000Z">
-<meta property="article:modified_time" content="2025-09-18T06:51:00.507Z">
+<meta property="article:modified_time" content="2025-10-10T05:32:50.173Z">
 <meta property="article:author" content="Zixian Jiang">
 <meta property="article:tag" content="实践技术">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          29 words
+          185 words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          1 mins
+          2 mins
         
       </span>
     
@@ -283,6 +283,11 @@
 
 <p>查看npm配置</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm config list<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="conda相关常用命令"><a href="#conda相关常用命令" class="headerlink" title="conda相关常用命令"></a>conda相关常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda --version  <span class="hljs-comment">#查看版本</span><br><br>conda create --name myenv python=3.8 <br>conda activate myenv <br>conda deactivate<br>conda remove --name myenv --all <span class="hljs-comment">#删除虚拟环境及其中的所有内容。</span><br><br><span class="hljs-comment"># 查看所有环境</span><br>conda <span class="hljs-built_in">env</span> list<br>    <span class="hljs-comment"># 或者</span><br>conda info --envs<br><br><br><span class="hljs-comment">#包管理</span><br>conda install：安装包<br>conda update：更新包<br>conda remove：卸载包<br>conda list：查看已安装的包<br><span class="hljs-comment">#环境导出与克隆</span><br>conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span>：导出环境配置<br>conda <span class="hljs-built_in">env</span> create：通过环境配置文件创建环境<br>conda list --explicit：导出所有包的精确安装列表<br>conda <span class="hljs-built_in">clone</span>：克隆现有环境<br><span class="hljs-comment">#搜索和查看</span><br>conda search：搜索包<br>conda info：显示环境和配置的详细信息<br><span class="hljs-comment">#其他命令</span><br>conda clean：清理缓存<br>conda config：配置 conda 设置<br>conda package：构建自定义包<br><br></code></pre></td></tr></table></figure>
+
+
 
 
                 
