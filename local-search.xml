@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>mac运行传感器脆弱性生成式检测系统步骤</title>
+    <link href="/2025/10/11/mac%E8%BF%90%E8%A1%8C%E4%BC%A0%E6%84%9F%E5%99%A8%E8%84%86%E5%BC%B1%E6%80%A7%E7%94%9F%E6%88%90%E5%BC%8F%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4/"/>
+    <url>/2025/10/11/mac%E8%BF%90%E8%A1%8C%E4%BC%A0%E6%84%9F%E5%99%A8%E8%84%86%E5%BC%B1%E6%80%A7%E7%94%9F%E6%88%90%E5%BC%8F%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4/</url>
+    
+    <content type="html"><![CDATA[<p>本笔记作试验记录用</p><h1 id="mac启动sensecllm步骤"><a href="#mac启动sensecllm步骤" class="headerlink" title="mac启动sensecllm步骤"></a>mac启动sensecllm步骤</h1><h2 id="启动dify"><a href="#启动dify" class="headerlink" title="启动dify"></a>启动dify</h2><h3 id="后台启动docker"><a href="#后台启动docker" class="headerlink" title="后台启动docker"></a>后台启动docker</h3><h3 id="启动dify-1"><a href="#启动dify-1" class="headerlink" title="启动dify"></a>启动dify</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /Users/jiangzixian/jzx-work/dify-main/docker<br>docker-compose up -d<br></code></pre></td></tr></table></figure><h2 id="启动sensecllm"><a href="#启动sensecllm" class="headerlink" title="启动sensecllm"></a>启动sensecllm</h2><p>源码在文件夹<code>/Users/jiangzixian/Nutstore Files/FILE_ALL/博一/2025-毕设jzx/具体工作/SenSecLLM部署/tot</code></p><p>之后进入your_env_name的conda环境</p><p>启动<code>deepseek-v3-PromptChaining-table-new-mac.py</code>文件即可</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>实践技术，传感器脆弱性生成式检测</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Windows11:Docker Desktop修改镜像下载路径（Disk image location）</title>
     <link href="/2025/01/21/Windows11-Docker-Desktop%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%EF%BC%88Disk-image-location%EF%BC%89/"/>
     <url>/2025/01/21/Windows11-Docker-Desktop%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%EF%BC%88Disk-image-location%EF%BC%89/</url>
