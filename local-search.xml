@@ -126,30 +126,5 @@
   
   
   
-  <entry>
-    <title>江紫弦的个人博客（用于语法测试）</title>
-    <link href="/2024/07/25/%E6%B1%9F%E7%B4%AB%E5%BC%A6%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <url>/2024/07/25/%E6%B1%9F%E7%B4%AB%E5%BC%A6%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    
-    <content type="html"><![CDATA[<h2 id="语法测试"><a href="#语法测试" class="headerlink" title="语法测试"></a>语法测试</h2><p><em>这是斜体</em> 或 <em>这也是斜体</em><br><strong>这是粗体</strong><br><em><strong>这是加粗斜体</strong></em><br><del>这是删除线</del></p><h2 id="标号"><a href="#标号" class="headerlink" title="标号"></a>标号</h2><ol><li>为什么</li><li>第二个</li><li>lingorm</li></ol><h2 id="try"><a href="#try" class="headerlink" title="try"></a>try</h2><p>管理员界面尝试，原来可以这样写<br>访问<code>http://localhost:4000/admin</code>即可</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>其他</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>个人记录</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
   
 </search>
