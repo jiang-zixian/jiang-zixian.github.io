@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>解决无法连接huggingface问题</title>
+    <link href="/2025/11/13/%E8%A7%A3%E5%86%B3%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5huggingface%E9%97%AE%E9%A2%98/"/>
+    <url>/2025/11/13/%E8%A7%A3%E5%86%B3%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5huggingface%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>当写代码总是连接不上huggingface、无法拉模型和数据集的时候，可以用以下方法提前把模型和数据集拉到本地</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://hf-mirror.com/hfd/hfd.sh<br><span class="hljs-built_in">chmod</span> a+x hfd.sh<br><br><span class="hljs-comment"># Linux环境下：</span><br><span class="hljs-built_in">export</span> HF_ENDPOINT=https://hf-mirror.com<br><br><span class="hljs-comment"># Windows Powershell</span><br><span class="hljs-variable">$env</span>:HF_ENDPOINT =<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br><span class="hljs-comment"># download model to current dir</span><br>../hfd.sh Lemhf14/EasyJailbreak_Datasets --hf_username *** --hf_token ***<br><br><span class="hljs-comment"># download dataset to current dir</span><br>../hfd.sh Lemhf14/EasyJailbreak_Datasets --hf_username *** --hf_token *** --dataset<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mac运行传感器脆弱性生成式检测系统步骤</title>
     <link href="/2025/10/11/mac%E8%BF%90%E8%A1%8C%E4%BC%A0%E6%84%9F%E5%99%A8%E8%84%86%E5%BC%B1%E6%80%A7%E7%94%9F%E6%88%90%E5%BC%8F%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4/"/>
     <url>/2025/10/11/mac%E8%BF%90%E8%A1%8C%E4%BC%A0%E6%84%9F%E5%99%A8%E8%84%86%E5%BC%B1%E6%80%A7%E7%94%9F%E6%88%90%E5%BC%8F%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F%E6%AD%A5%E9%AA%A4/</url>
