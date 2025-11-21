@@ -280,6 +280,7 @@
                 
                 <p>当写代码总是连接不上huggingface、无法拉模型和数据集的时候，可以用以下方法提前把模型和数据集拉到本地</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://hf-mirror.com/hfd/hfd.sh<br><span class="hljs-built_in">chmod</span> a+x hfd.sh<br><br><span class="hljs-comment"># Linux环境下：</span><br><span class="hljs-built_in">export</span> HF_ENDPOINT=https://hf-mirror.com<br><br><span class="hljs-comment"># Windows Powershell</span><br><span class="hljs-variable">$env</span>:HF_ENDPOINT =<span class="hljs-string">&quot;https://hf-mirror.com&quot;</span><br><br><span class="hljs-comment"># download model to current dir</span><br>../hfd.sh Lemhf14/EasyJailbreak_Datasets --hf_username *** --hf_token ***<br><br><span class="hljs-comment"># download dataset to current dir</span><br>../hfd.sh Lemhf14/EasyJailbreak_Datasets --hf_username *** --hf_token *** --dataset<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             

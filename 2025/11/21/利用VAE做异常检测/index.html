@@ -19,15 +19,15 @@
   <meta name="author" content="Zixian Jiang">
   <meta name="keywords" content="System security">
   
-    <meta name="description" content="利用VAE做异常检测 使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由">
+    <meta name="description" content="使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由两个网络组成：  En">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用VAE做异常检测">
 <meta property="og:url" content="https://jiang-zixian.github.io/2025/11/21/%E5%88%A9%E7%94%A8VAE%E5%81%9A%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Healer_jzx">
-<meta property="og:description" content="利用VAE做异常检测 使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由">
+<meta property="og:description" content="使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由两个网络组成：  En">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-11-21T03:04:18.000Z">
-<meta property="article:modified_time" content="2025-11-21T07:26:39.182Z">
+<meta property="article:modified_time" content="2025-11-21T07:39:34.993Z">
 <meta property="article:author" content="Zixian Jiang">
 <meta property="article:tag" content="理论学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          788 words
+          764 words
         
       </span>
     
@@ -278,108 +278,106 @@
             
               <div class="markdown-body">
                 
-                <h1>利用VAE做异常检测</h1>
-<p>使用 <strong>VAE（Variational Autoencoder，变分自编码器）做异常检测</strong> 的核心原理可以总结为一句话：</p>
+                <p>使用 <strong>VAE（Variational
+Autoencoder，变分自编码器）做异常检测</strong>
+的核心原理可以总结为一句话：</p>
 <blockquote>
-<p><strong>VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。</strong></p>
+<p><strong>VAE
+在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在
+VAE
+中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。</strong></p>
 </blockquote>
-<hr>
-<h1>1. VAE 做异常检测的基本机制（核心原理）</h1>
+<hr />
+<h1 id="vae-做异常检测的基本机制核心原理">1. VAE
+做异常检测的基本机制（核心原理）</h1>
 <p>VAE 是一个概率生成模型，由两个网络组成：</p>
 <ul>
-<li><strong>Encoder</strong>：把输入 (x) 映射到潜变量分布 $(q_\phi(z|x))$（通常是高斯分布的均值和方差）。</li>
-<li><strong>Decoder</strong>：从潜变量 (z) 生成重建样本 $(\hat{x} = p_\theta(x|z))$。</li>
+<li><strong>Encoder</strong>：把输入 (x) 映射到潜变量分布 <span
+class="math inline">(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>))</span>（通常是高斯分布的均值和方差）。</li>
+<li><strong>Decoder</strong>：从潜变量 (z) 生成重建样本 <span
+class="math inline">(<em>x̂</em> = <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>))</span>。</li>
 </ul>
 <p>训练目标是最大化“证据下界”（ELBO）：</p>
-<p>[<br>
-\log p_\theta(x) \ge \mathbb{E}<em>{q</em>\phi(z|x)}[\log p_\theta(x|z)] - KL\big(q_\phi(z|x) ,|, p(z)\big)<br>
-]</p>
+<p><span
+class="math display">log <em>p</em><sub><em>θ</em></sub>(<em>x</em>) ≥ 𝔼<sub><em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>)</sub>[log <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>)] − <em>K</em><em>L</em>(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>) ∥ <em>p</em>(<em>z</em>))</span></p>
 <p>➡ <strong>VAE 本质是在学习“正常数据的概率分布”</strong>。</p>
-<hr>
-<h2 id="在异常检测中，它的逻辑是：">在异常检测中，它的逻辑是：</h2>
-<ol>
-<li>
-<p><strong>训练阶段：</strong></p>
+<hr />
+<h2 id="在异常检测中它的逻辑是">在异常检测中，它的逻辑是：</h2>
+<ol type="1">
+<li><p><strong>训练阶段：</strong></p>
 <ul>
 <li>用<strong>正常样本</strong>训练 VAE。</li>
 <li>VAE 会把“正常样本的潜在空间结构”学得很好。</li>
 <li>异常模式因为没出现过 → VAE 不会学到它们。</li>
-</ul>
-</li>
-<li>
-<p><strong>测试阶段：</strong></p>
+</ul></li>
+<li><p><strong>测试阶段：</strong></p>
 <ul>
 <li>对输入数据 (x) 使用训练好的 VAE 进行编码和重建。</li>
 <li>判断这个 (x) 是否“符合正常分布”。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<hr>
-<h1>2. 如何判断异常？（三种常见指标）</h1>
-<h2 id="①-重建误差（Reconstruction-Error）"><strong>① 重建误差（Reconstruction Error）</strong></h2>
-<p>[<br>
-| x - \hat{x} |<br>
-]</p>
+<hr />
+<h1 id="如何判断异常三种常见指标">2. 如何判断异常？（三种常见指标）</h1>
+<h2 id="重建误差reconstruction-error"><strong>① 重建误差（Reconstruction
+Error）</strong></h2>
+<p><span class="math display">∥<em>x</em> − <em>x̂</em>∥</span></p>
 <ul>
 <li>对正常样本：VAE 学得很好 → 重建误差小</li>
 <li>对异常样本：VAE 不知道如何生成 → 重建误差大</li>
 </ul>
 <p>➡ 最常见的异常检测方法。</p>
-<hr>
-<h2 id="②-重建概率-负对数似然（NLL）"><strong>② 重建概率 / 负对数似然（NLL）</strong></h2>
+<hr />
+<h2 id="重建概率-负对数似然nll"><strong>② 重建概率 /
+负对数似然（NLL）</strong></h2>
 <p>VAE 本质是概率生成模型，所以可以计算：</p>
-<p>[<br>
--\log p_\theta(x|z)<br>
-]</p>
+<p><span
+class="math display">−log <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>)</span></p>
 <ul>
 <li>正常：似然高 → NLL 小</li>
 <li>异常：似然低 → NLL 大</li>
 </ul>
 <p>➡ <strong>比简单重建误差更稳健</strong>。</p>
-<hr>
-<h2 id="③-潜变量分布偏差（KL-Divergence）"><strong>③ 潜变量分布偏差（KL Divergence）</strong></h2>
-<p>[<br>
-KL\big(q_\phi(z|x) ,|, p(z)\big)<br>
-]</p>
+<hr />
+<h2 id="潜变量分布偏差kl-divergence"><strong>③ 潜变量分布偏差（KL
+Divergence）</strong></h2>
+<p><span
+class="math display"><em>K</em><em>L</em>(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>) ∥ <em>p</em>(<em>z</em>))</span></p>
 <p>其中 (p(z)) 是先验（通常是标准正态分布）。</p>
 <ul>
 <li>正常样本：潜变量落在 VAE 习惯的区域 → KL 小</li>
 <li>异常样本：潜变量分布很奇怪 → KL 大</li>
 </ul>
 <p>➡ 常用于工业数据监控/传感器异常检测。</p>
-<hr>
-<h1>3. VAE 为什么能检测异常？（直观理解）</h1>
-<h2 id="核心理由：VAE-的能力是有限的，它只能很好表示“被训练过的数据”。"><strong>核心理由：VAE 的能力是有限的，它只能很好表示“被训练过的数据”。</strong></h2>
-<h3 id="对正常数据：">对正常数据：</h3>
+<hr />
+<h1 id="vae-为什么能检测异常直观理解">3. VAE
+为什么能检测异常？（直观理解）</h1>
+<h2
+id="核心理由vae-的能力是有限的它只能很好表示被训练过的数据"><strong>核心理由：VAE
+的能力是有限的，它只能很好表示“被训练过的数据”。</strong></h2>
+<h3 id="对正常数据">对正常数据：</h3>
 <ul>
 <li>学到了对应的潜变量结构</li>
 <li>解码器能从潜空间正确“生成”正常样本</li>
 <li>因此重建误差小 / 似然高</li>
 </ul>
-<h3 id="对异常数据：">对异常数据：</h3>
+<h3 id="对异常数据">对异常数据：</h3>
 <ul>
 <li>这些样本分布不在训练分布内</li>
-<li>Encoder 会把它们映射到一个异常的 latent region（潜空间没有见过）</li>
+<li>Encoder 会把它们映射到一个异常的 latent
+region（潜空间没有见过）</li>
 <li>Decoder 不能按照正常方式“重建”它们</li>
 <li>因此重建误差变大或似然变低</li>
 </ul>
-<hr>
-<h1>4. VAE 异常检测的局限性（非常重要）</h1>
-<ol>
-<li>
-<p><strong>重建能力太强时，会“重建异常” → 导致漏检</strong><br>
-（比如 β-VAE 等可控制 KL 的 VAE 能部分缓解）</p>
-</li>
-<li>
-<p><strong>潜空间过于简单（如高斯先验）可能限制表达能力</strong></p>
-</li>
-<li>
-<p><strong>需要大量“纯净的正常样本”</strong><br>
-如果训练集中混入异常 → 性能显著下降</p>
-</li>
-<li>
-<p><strong>高维数据（视频）可能重建误差难以界定</strong></p>
-</li>
+<hr />
+<h1 id="vae-异常检测的局限性非常重要">4. VAE
+异常检测的局限性（非常重要）</h1>
+<ol type="1">
+<li><p><strong>重建能力太强时，会“重建异常” → 导致漏检</strong> （比如
+β-VAE 等可控制 KL 的 VAE 能部分缓解）</p></li>
+<li><p><strong>潜空间过于简单（如高斯先验）可能限制表达能力</strong></p></li>
+<li><p><strong>需要大量“纯净的正常样本”</strong> 如果训练集中混入异常 →
+性能显著下降</p></li>
+<li><p><strong>高维数据（视频）可能重建误差难以界定</strong></p></li>
 </ol>
 
                 
