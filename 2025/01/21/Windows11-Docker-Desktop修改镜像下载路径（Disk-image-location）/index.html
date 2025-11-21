@@ -19,21 +19,21 @@
   <meta name="author" content="Zixian Jiang">
   <meta name="keywords" content="System security">
   
-    <meta name="description" content="操作系统：windows11 步骤：  打开Docker Desktop 点击右上角设置 Resources-&gt;Disk image location-&gt;Apply&amp;restart">
+    <meta name="description" content="操作系统：windows11 步骤：  打开Docker Desktop 点击右上角设置  Resources-&gt;Disk image location-&gt;Apply&amp;restart">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows11:Docker Desktop修改镜像下载路径（Disk image location）">
 <meta property="og:url" content="https://jiang-zixian.github.io/2025/01/21/Windows11-Docker-Desktop%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%EF%BC%88Disk-image-location%EF%BC%89/index.html">
 <meta property="og:site_name" content="Healer_jzx">
-<meta property="og:description" content="操作系统：windows11 步骤：  打开Docker Desktop 点击右上角设置 Resources-&gt;Disk image location-&gt;Apply&amp;restart">
+<meta property="og:description" content="操作系统：windows11 步骤：  打开Docker Desktop 点击右上角设置  Resources-&gt;Disk image location-&gt;Apply&amp;restart">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image.png">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-1.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-1.png">
 <meta property="article:published_time" content="2025-01-21T06:29:22.000Z">
 <meta property="article:modified_time" content="2025-01-21T08:29:32.000Z">
 <meta property="article:author" content="Zixian Jiang">
 <meta property="article:tag" content="实践技术">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jiang-zixian.github.io/img/image.png">
+<meta name="twitter:image" content="https://jiang-zixian.github.io/2025/01/21/img/image.png">
   
   
   
@@ -88,7 +88,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -283,8 +285,10 @@
 <p>步骤：</p>
 <ol>
 <li>打开Docker Desktop</li>
-<li>点击右上角设置<br><img src="/../img/image.png" srcset="/img/loading.gif" lazyload alt="alt text"></li>
-<li>Resources-&gt;Disk image location-&gt;Apply&amp;restart<br><img src="/../img/image-1.png" srcset="/img/loading.gif" lazyload alt="alt text"></li>
+<li>点击右上角设置<br>
+<img src="../img/image.png" srcset="/img/loading.gif" lazyload alt="alt text"></li>
+<li>Resources-&gt;Disk image location-&gt;Apply&amp;restart<br>
+<img src="../img/image-1.png" srcset="/img/loading.gif" lazyload alt="alt text"></li>
 </ol>
 
                 
@@ -481,6 +485,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -667,6 +677,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

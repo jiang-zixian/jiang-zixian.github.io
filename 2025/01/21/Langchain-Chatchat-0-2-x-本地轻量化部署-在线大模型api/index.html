@@ -19,25 +19,25 @@
   <meta name="author" content="Zixian Jiang">
   <meta name="keywords" content="System security">
   
-    <meta name="description" content="感谢这位大佬的部署笔记，我在此基础上做出一些说明和补充 实验环境操作系统：windows 11需提前下载：  Docker Desktop python 3.11.x，我用的3.11.11 线上大模型api key的获取，本人暂时只获取了zhipu-api  具体步骤docker拉取官方python 3.11的镜像1docker pull python:3.11   Docker Desktop默">
+    <meta name="description" content="感谢这位大佬的部署笔记，我在此基础上做出一些说明和补充 实验环境 操作系统：windows 11 需提前下载：  Docker Desktop python 3.11.x，我用的3.11.11 线上大模型api key的获取，本人暂时只获取了zhipu-api  具体步骤 docker拉取官方python 3.11的镜像 1docker pull python:3.11  Docker Deskt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Langchain-Chatchat(0.2.x)本地轻量化部署+在线大模型api">
 <meta property="og:url" content="https://jiang-zixian.github.io/2025/01/21/Langchain-Chatchat-0-2-x-%E6%9C%AC%E5%9C%B0%E8%BD%BB%E9%87%8F%E5%8C%96%E9%83%A8%E7%BD%B2-%E5%9C%A8%E7%BA%BF%E5%A4%A7%E6%A8%A1%E5%9E%8Bapi/index.html">
 <meta property="og:site_name" content="Healer_jzx">
-<meta property="og:description" content="感谢这位大佬的部署笔记，我在此基础上做出一些说明和补充 实验环境操作系统：windows 11需提前下载：  Docker Desktop python 3.11.x，我用的3.11.11 线上大模型api key的获取，本人暂时只获取了zhipu-api  具体步骤docker拉取官方python 3.11的镜像1docker pull python:3.11   Docker Desktop默">
+<meta property="og:description" content="感谢这位大佬的部署笔记，我在此基础上做出一些说明和补充 实验环境 操作系统：windows 11 需提前下载：  Docker Desktop python 3.11.x，我用的3.11.11 线上大模型api key的获取，本人暂时只获取了zhipu-api  具体步骤 docker拉取官方python 3.11的镜像 1docker pull python:3.11  Docker Deskt">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-2.png">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-3.png">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-4.png">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-5.png">
-<meta property="og:image" content="https://jiang-zixian.github.io/img/image-6.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-2.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-3.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-4.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-5.png">
+<meta property="og:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-6.png">
 <meta property="article:published_time" content="2025-01-21T06:24:21.000Z">
 <meta property="article:modified_time" content="2025-03-05T12:50:28.000Z">
 <meta property="article:author" content="Zixian Jiang">
 <meta property="article:tag" content="实践技术">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jiang-zixian.github.io/img/image-2.png">
+<meta name="twitter:image" content="https://jiang-zixian.github.io/2025/01/21/img/image-2.png">
   
   
   
@@ -92,7 +92,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -230,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          638 words
+          635 words
         
       </span>
     
@@ -284,69 +286,89 @@
               <div class="markdown-body">
                 
                 <p>感谢这位大佬的<a target="_blank" rel="noopener" href="https://blog.csdn.net/YELLOWAUG/article/details/136241731">部署笔记</a>，我在此基础上做出一些说明和补充</p>
-<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><p>操作系统：windows 11<br>需提前下载：</p>
+<h2 id="实验环境">实验环境</h2>
+<p>操作系统：windows 11<br>
+需提前下载：</p>
 <ul>
 <li>Docker Desktop</li>
 <li>python 3.11.x，我用的3.11.11</li>
 <li>线上大模型api key的获取，本人暂时只获取了zhipu-api</li>
 </ul>
-<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><h3 id="docker拉取官方python-3-11的镜像"><a href="#docker拉取官方python-3-11的镜像" class="headerlink" title="docker拉取官方python 3.11的镜像"></a>docker拉取官方python 3.11的镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull python:3.11<br></code></pre></td></tr></table></figure>
-
+<h2 id="具体步骤">具体步骤</h2>
+<h3 id="docker拉取官方python-3-11的镜像">docker拉取官方python 3.11的镜像</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull python:3.11<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>Docker Desktop默认的镜像下载地址在C盘，建议将镜像默认下载地址放到非C盘，以防C盘爆满，具体操作见<a href="/2025/01/21/Windows11-Docker-Desktop%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%EF%BC%88Disk-image-location%EF%BC%89/" title="Windows11:Docker Desktop修改镜像下载路径（Disk image location）">Windows11:Docker Desktop修改镜像下载路径（Disk image location）</a></p>
 </blockquote>
-<h3 id="运行Docker容器"><a href="#运行Docker容器" class="headerlink" title="运行Docker容器"></a>运行Docker容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -itd --name chatlite -v /etc/localtime:/etc/localtime:ro -p 18501:8501 python:3.11<br></code></pre></td></tr></table></figure>
-
-<h3 id="下载Langchain-Chatchat-0-2-x项目源码"><a href="#下载Langchain-Chatchat-0-2-x项目源码" class="headerlink" title="下载Langchain-Chatchat 0.2.x项目源码"></a>下载Langchain-Chatchat 0.2.x项目源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> -b 0.2.final --recursive https://github.com/chatchat-space/Langchain-Chatchat.git<br></code></pre></td></tr></table></figure>
+<h3 id="运行Docker容器">运行Docker容器</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -itd --name chatlite -v /etc/localtime:/etc/localtime:ro -p 18501:8501 python:3.11<br></code></pre></td></tr></table></figure>
+<h3 id="下载Langchain-Chatchat-0-2-x项目源码">下载Langchain-Chatchat 0.2.x项目源码</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> -b 0.2.final --recursive https://github.com/chatchat-space/Langchain-Chatchat.git<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>这里指定0.2.final分支，不使用最新的0.3.x版本，本人暂时未成功部署0.3.x</p>
 </blockquote>
-<h3 id="Langchain-Chatchat源码修改"><a href="#Langchain-Chatchat源码修改" class="headerlink" title="Langchain-Chatchat源码修改"></a>Langchain-Chatchat源码修改</h3><ol>
-<li><p>根目录下config文件夹下面的文件格式原本为*.py.example, 要全部改成.py，修改后如下<br><img src="/../img/image-2.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h3 id="Langchain-Chatchat源码修改">Langchain-Chatchat源码修改</h3>
+<ol>
+<li>
+<p>根目录下config文件夹下面的文件格式原本为*.py.example, <a target="_blank" rel="noopener" href="http://xn--15qx91bllcp98c0zh.py">要全部改成.py</a>，修改后如下<br>
+<img src="../img/image-2.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
 </li>
-<li><p>修改根目录下的configs&#x2F;model_config.py配置文件<br>修改三个地方：</p>
+<li>
+<p>修改根目录下的configs/model_config.py配置文件<br>
+修改三个地方：</p>
 </li>
 </ol>
 <ul>
-<li>“LLM_MODELS”<br>  修改为 LLM_MODELS &#x3D; [“zhipu-api”, “openai-api”]<blockquote>
+<li>“LLM_MODELS”<br>
+修改为 LLM_MODELS = [“zhipu-api”, “openai-api”]
+<blockquote>
 <p>想要使用什么其他的api，在后面添加即可</p>
 </blockquote>
 </li>
-<li>“LLM_DEVICE”<br>  修改为 LLM_DEVICE &#x3D; “cpu”<blockquote>
+<li>“LLM_DEVICE”<br>
+修改为 LLM_DEVICE = “cpu”
+<blockquote>
 <p>我们在LLM_MODELS 这个字段里把线下的大模型给删除了，这样程序在加载模型的时候就不会加载本地模型了。只要不加载本地LLM模型，就不会有对GPU的计算需求，LLM_DEVICE 这个字段改成“CPU” 目的是让模型加载方式是用CPU加载。</p>
 </blockquote>
 </li>
-<li>“zhipu-api”<br>  要补充自己的api key（分别上官网获取）<br>  <img src="/../img/image-3.png" srcset="/img/loading.gif" lazyload alt="alt text"><blockquote>
+<li>“zhipu-api”<br>
+要补充自己的api key（分别上官网获取）<br>
+<img src="../img/image-3.png" srcset="/img/loading.gif" lazyload alt="alt text">
+<blockquote>
 <p>想要使用什么api，自行填充对应的key即可，本人暂时只获取了zhipu-api</p>
 </blockquote>
 </li>
 </ul>
-<h3 id="将项目文件夹copy到容器中"><a href="#将项目文件夹copy到容器中" class="headerlink" title="将项目文件夹copy到容器中"></a>将项目文件夹copy到容器中</h3><p>容器ID在docker run之后用docker ps指令获取即可</p>
+<h3 id="将项目文件夹copy到容器中">将项目文件夹copy到容器中</h3>
+<p>容器ID在docker run之后用docker ps指令获取即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">cp</span> ./Langchain-Chatchat-2 容器ID:/home <br></code></pre></td></tr></table></figure>
-
-<h3 id="进入容器终端-进入项目目录"><a href="#进入容器终端-进入项目目录" class="headerlink" title="进入容器终端,进入项目目录"></a>进入容器终端,进入项目目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it 容器ID /bin/bash<br><span class="hljs-built_in">cd</span> /home/Langchain-Chatchat-2<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements_lite.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/<br><br>pip install -r requirements_webui.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/<br></code></pre></td></tr></table></figure>
-
-<h3 id="启动Langchain-Chatchat（只运行线上LLM-API的方式）"><a href="#启动Langchain-Chatchat（只运行线上LLM-API的方式）" class="headerlink" title="启动Langchain-Chatchat（只运行线上LLM API的方式）"></a>启动Langchain-Chatchat（只运行线上LLM API的方式）</h3><p>要在项目的根目录下运行该命令</p>
+<h3 id="进入容器终端-进入项目目录">进入容器终端,进入项目目录</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it 容器ID /bin/bash<br><span class="hljs-built_in">cd</span> /home/Langchain-Chatchat-2<br></code></pre></td></tr></table></figure>
+<h3 id="下载依赖">下载依赖</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements_lite.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/<br><br>pip install -r requirements_webui.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/<br></code></pre></td></tr></table></figure>
+<h3 id="启动Langchain-Chatchat（只运行线上LLM-API的方式）">启动Langchain-Chatchat（只运行线上LLM API的方式）</h3>
+<p>要在项目的根目录下运行该命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python startup.py -a --lite<br></code></pre></td></tr></table></figure>
-
-<p>注意：启动过程中，会报以下类似错误：<br><img src="/../img/image-4.png" srcset="/img/loading.gif" lazyload alt="alt text"><br>只是因为缺少了一些依赖，我们使用pip install单独下载即可，比如对于上述错误，我们只需要</p>
+<p>注意：启动过程中，会报以下类似错误：<br>
+<img src="../img/image-4.png" srcset="/img/loading.gif" lazyload alt="alt text"><br>
+只是因为缺少了一些依赖，我们使用pip install单独下载即可，比如对于上述错误，我们只需要</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install markdownify<br></code></pre></td></tr></table></figure>
-
-
-<h3 id="启动成功"><a href="#启动成功" class="headerlink" title="启动成功"></a>启动成功</h3><p>终端显示：<br><img src="/../img/image-5.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h3 id="启动成功">启动成功</h3>
+<p>终端显示：<br>
+<img src="../img/image-5.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
 <p>访问该URL即可</p>
-<p><img src="/../img/image-6.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
-<h2 id="启动步骤"><a href="#启动步骤" class="headerlink" title="启动步骤"></a>启动步骤</h2><h3 id="启动windows的docker"><a href="#启动windows的docker" class="headerlink" title="启动windows的docker"></a>启动windows的docker</h3><p>打开docker软件即可</p>
-<h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker start chatlite<br></code></pre></td></tr></table></figure>
-
-<h3 id="进入命令行"><a href="#进入命令行" class="headerlink" title="进入命令行"></a>进入命令行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it chatlite bash<br></code></pre></td></tr></table></figure>
-
-<h3 id="在容器中启动服务"><a href="#在容器中启动服务" class="headerlink" title="在容器中启动服务"></a>在容器中启动服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /home/Langchain-Chatchat-2<br>python startup.py -a --lite<br></code></pre></td></tr></table></figure>
-
-<h3 id="在浏览器里访问"><a href="#在浏览器里访问" class="headerlink" title="在浏览器里访问"></a>在浏览器里访问</h3><p>访问 <code>http://0.0.0.0:8501</code></p>
+<p><img src="../img/image-6.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<h2 id="启动步骤">启动步骤</h2>
+<h3 id="启动windows的docker">启动windows的docker</h3>
+<p>打开docker软件即可</p>
+<h3 id="启动容器">启动容器</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker start chatlite<br></code></pre></td></tr></table></figure>
+<h3 id="进入命令行">进入命令行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it chatlite bash<br></code></pre></td></tr></table></figure>
+<h3 id="在容器中启动服务">在容器中启动服务</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /home/Langchain-Chatchat-2<br>python startup.py -a --lite<br></code></pre></td></tr></table></figure>
+<h3 id="在浏览器里访问">在浏览器里访问</h3>
+<p>访问 <code>http://0.0.0.0:8501</code></p>
 
                 
               </div>
@@ -544,6 +566,12 @@
   
 
 
+  
+  
+
+
+
+
 
 
 
@@ -730,6 +758,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
