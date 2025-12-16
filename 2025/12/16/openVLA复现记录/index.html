@@ -19,22 +19,23 @@
   <meta name="author" content="Zixian Jiang">
   <meta name="keywords" content="System security">
   
-    <meta name="description" content="使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由两个网络组成：  En">
+    <meta name="description" content="硬件配置 服务器平台：Autodl 服务器规格：  Autodl 学术加速 好用！！！ 12# 终端中使用source &#x2F;etc&#x2F;network_turbo 环境部署 创建环境 12conda create -n openvla python&#x3D;3.10 -yconda activate openvla 安装openVLA及其依赖 12345678910111213141516# 安装CUDA 12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用VAE做异常检测">
-<meta property="og:url" content="https://jiang-zixian.github.io/2025/11/21/%E5%88%A9%E7%94%A8VAE%E5%81%9A%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:title" content="openVLA复现记录">
+<meta property="og:url" content="https://jiang-zixian.github.io/2025/12/16/openVLA%E5%A4%8D%E7%8E%B0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Healer_jzx">
-<meta property="og:description" content="使用 VAE（Variational Autoencoder，变分自编码器）做异常检测 的核心原理可以总结为一句话：  VAE 在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在 VAE 中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。   1. VAE 做异常检测的基本机制（核心原理） VAE 是一个概率生成模型，由两个网络组成：  En">
+<meta property="og:description" content="硬件配置 服务器平台：Autodl 服务器规格：  Autodl 学术加速 好用！！！ 12# 终端中使用source &#x2F;etc&#x2F;network_turbo 环境部署 创建环境 12conda create -n openvla python&#x3D;3.10 -yconda activate openvla 安装openVLA及其依赖 12345678910111213141516# 安装CUDA 12">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-11-21T03:04:18.000Z">
-<meta property="article:modified_time" content="2025-11-21T07:39:34.993Z">
+<meta property="article:published_time" content="2025-12-16T09:25:29.000Z">
+<meta property="article:modified_time" content="2025-12-16T12:05:55.188Z">
 <meta property="article:author" content="Zixian Jiang">
-<meta property="article:tag" content="理论学习">
+<meta property="article:tag" content="实践技术">
+<meta property="article:tag" content="EAI">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>利用VAE做异常检测 - Healer_jzx</title>
+  <title>openVLA复现记录 - Healer_jzx</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="利用VAE做异常检测"></span>
+            <span id="subtitle" data-typed-text="openVLA复现记录"></span>
           
         </div>
 
@@ -213,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-21 11:04" pubdate>
-          November 21, 2025 am
+        <time datetime="2025-12-16 17:25" pubdate>
+          December 16, 2025 pm
         </time>
       </span>
     
@@ -225,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          764 words
+          365 words
         
       </span>
     
@@ -236,7 +237,7 @@
         
         
         
-          7 mins
+          4 mins
         
       </span>
     
@@ -273,112 +274,38 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">利用VAE做异常检测</h1>
+            <h1 id="seo-header">openVLA复现记录</h1>
             
             
               <div class="markdown-body">
                 
-                <p>使用 <strong>VAE（Variational
-Autoencoder，变分自编码器）做异常检测</strong>
-的核心原理可以总结为一句话：</p>
-<blockquote>
-<p><strong>VAE
-在正常数据上学习到一个概率生成模型，能够高概率地重建正常样本；而异常样本偏离正常数据分布，在
-VAE
-中会表现为重建差、低似然或潜变量分布不合理，因此可以被检测出来。</strong></p>
-</blockquote>
-<hr />
-<h1 id="vae-做异常检测的基本机制核心原理">1. VAE
-做异常检测的基本机制（核心原理）</h1>
-<p>VAE 是一个概率生成模型，由两个网络组成：</p>
-<ul>
-<li><strong>Encoder</strong>：把输入 (x) 映射到潜变量分布 <span
-class="math inline">(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>))</span>（通常是高斯分布的均值和方差）。</li>
-<li><strong>Decoder</strong>：从潜变量 (z) 生成重建样本 <span
-class="math inline">(<em>x̂</em> = <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>))</span>。</li>
-</ul>
-<p>训练目标是最大化“证据下界”（ELBO）：</p>
-<p><span
-class="math display">log <em>p</em><sub><em>θ</em></sub>(<em>x</em>) ≥ 𝔼<sub><em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>)</sub>[log <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>)] − <em>K</em><em>L</em>(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>) ∥ <em>p</em>(<em>z</em>))</span></p>
-<p>➡ <strong>VAE 本质是在学习“正常数据的概率分布”</strong>。</p>
-<hr />
-<h2 id="在异常检测中它的逻辑是">在异常检测中，它的逻辑是：</h2>
-<ol type="1">
-<li><p><strong>训练阶段：</strong></p>
-<ul>
-<li>用<strong>正常样本</strong>训练 VAE。</li>
-<li>VAE 会把“正常样本的潜在空间结构”学得很好。</li>
-<li>异常模式因为没出现过 → VAE 不会学到它们。</li>
-</ul></li>
-<li><p><strong>测试阶段：</strong></p>
-<ul>
-<li>对输入数据 (x) 使用训练好的 VAE 进行编码和重建。</li>
-<li>判断这个 (x) 是否“符合正常分布”。</li>
-</ul></li>
-</ol>
-<hr />
-<h1 id="如何判断异常三种常见指标">2. 如何判断异常？（三种常见指标）</h1>
-<h2 id="重建误差reconstruction-error"><strong>① 重建误差（Reconstruction
-Error）</strong></h2>
-<p><span class="math display">∥<em>x</em> − <em>x̂</em>∥</span></p>
-<ul>
-<li>对正常样本：VAE 学得很好 → 重建误差小</li>
-<li>对异常样本：VAE 不知道如何生成 → 重建误差大</li>
-</ul>
-<p>➡ 最常见的异常检测方法。</p>
-<hr />
-<h2 id="重建概率-负对数似然nll"><strong>② 重建概率 /
-负对数似然（NLL）</strong></h2>
-<p>VAE 本质是概率生成模型，所以可以计算：</p>
-<p><span
-class="math display">−log <em>p</em><sub><em>θ</em></sub>(<em>x</em>|<em>z</em>)</span></p>
-<ul>
-<li>正常：似然高 → NLL 小</li>
-<li>异常：似然低 → NLL 大</li>
-</ul>
-<p>➡ <strong>比简单重建误差更稳健</strong>。</p>
-<hr />
-<h2 id="潜变量分布偏差kl-divergence"><strong>③ 潜变量分布偏差（KL
-Divergence）</strong></h2>
-<p><span
-class="math display"><em>K</em><em>L</em>(<em>q</em><sub><em>ϕ</em></sub>(<em>z</em>|<em>x</em>) ∥ <em>p</em>(<em>z</em>))</span></p>
-<p>其中 (p(z)) 是先验（通常是标准正态分布）。</p>
-<ul>
-<li>正常样本：潜变量落在 VAE 习惯的区域 → KL 小</li>
-<li>异常样本：潜变量分布很奇怪 → KL 大</li>
-</ul>
-<p>➡ 常用于工业数据监控/传感器异常检测。</p>
-<hr />
-<h1 id="vae-为什么能检测异常直观理解">3. VAE
-为什么能检测异常？（直观理解）</h1>
-<h2
-id="核心理由vae-的能力是有限的它只能很好表示被训练过的数据"><strong>核心理由：VAE
-的能力是有限的，它只能很好表示“被训练过的数据”。</strong></h2>
-<h3 id="对正常数据">对正常数据：</h3>
-<ul>
-<li>学到了对应的潜变量结构</li>
-<li>解码器能从潜空间正确“生成”正常样本</li>
-<li>因此重建误差小 / 似然高</li>
-</ul>
-<h3 id="对异常数据">对异常数据：</h3>
-<ul>
-<li>这些样本分布不在训练分布内</li>
-<li>Encoder 会把它们映射到一个异常的 latent
-region（潜空间没有见过）</li>
-<li>Decoder 不能按照正常方式“重建”它们</li>
-<li>因此重建误差变大或似然变低</li>
-</ul>
-<hr />
-<h1 id="vae-异常检测的局限性非常重要">4. VAE
-异常检测的局限性（非常重要）</h1>
-<ol type="1">
-<li><p><strong>重建能力太强时，会“重建异常” → 导致漏检</strong> （比如
-β-VAE 等可控制 KL 的 VAE 能部分缓解）</p></li>
-<li><p><strong>潜空间过于简单（如高斯先验）可能限制表达能力</strong></p></li>
-<li><p><strong>需要大量“纯净的正常样本”</strong> 如果训练集中混入异常 →
-性能显著下降</p></li>
-<li><p><strong>高维数据（视频）可能重建误差难以界定</strong></p></li>
-</ol>
+                <h2 id="硬件配置">硬件配置</h2>
+<p>服务器平台：Autodl 服务器规格： <img
+src="img/openVLA复现记录/image.png" srcset="/img/loading.gif" lazyload alt="alt text" /></p>
+<h2 id="autodl-学术加速">Autodl 学术加速</h2>
+<p>好用！！！ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 终端中使用</span><br><span class="hljs-built_in">source</span> /etc/network_turbo<br></code></pre></td></tr></table></figure></p>
+<h2 id="环境部署">环境部署</h2>
+<h3 id="创建环境">创建环境</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n openvla python=3.10 -y<br>conda activate openvla<br></code></pre></td></tr></table></figure>
+<h3 id="安装openvla及其依赖">安装openVLA及其依赖</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装CUDA 12.4,实测成功</span><br><span class="hljs-comment"># 实验中本人未执行这一步，因为autodl选择的镜像已经下载好cuda了</span><br>conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia -y <br><br><span class="hljs-comment"># 克隆openvla </span><br>git <span class="hljs-built_in">clone</span> https://github.com/openvla/openvla.git<br><span class="hljs-built_in">cd</span> openvla<br>pip install -e .<br><br><br><span class="hljs-comment"># 安装Flash Attention 2  </span><br><span class="hljs-comment"># 如果遇到困难先输⼊`pip cache remove flash_attn`  </span><br>pip install packaging ninja<br>ninja --version; <span class="hljs-built_in">echo</span> $?  <span class="hljs-comment"># Verify Ninja --&gt; should return exit code &quot;0&quot;</span><br>pip install <span class="hljs-string">&quot;flash-attn==2.6.1&quot;</span> --no-build-isolatio <span class="hljs-comment"># 实测2.5.5版本不成功</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="libero配置">LIBERO配置</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/Lifelong-Robot-Learning/LIBERO.git<br><span class="hljs-built_in">cd</span> LIBERO<br>pip install -e .<br></code></pre></td></tr></table></figure>
+<h3 id="其他依赖">其他依赖</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> openvla<br>pip install -r experiments/robot/libero/libero_requirements.txt<br></code></pre></td></tr></table></figure>
+<p>这一步会报错 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ERROR: pip<span class="hljs-string">&#x27;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts. tensorflow 2.15.0 requires numpy&lt;2.0.0,&gt;=1.23.5, but you have numpy 2.2.6 which is incompatible.</span><br></code></pre></td></tr></table></figure></p>
+<p>降级numpy即可 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy==1.26.4 --force-reinstall<br></code></pre></td></tr></table></figure></p>
+<p>这时又会报错 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ERROR: pip<span class="hljs-string">&#x27;s dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts. opencv-python 4.12.0.88 requires numpy&lt;2.3.0,&gt;=2; python_version &gt;= &quot;3.9&quot;, but you have numpy 1.26.4 which is incompatible.</span><br></code></pre></td></tr></table></figure></p>
+<p>降级opencv即可，其实openVLA的运行不需要opencv <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip uninstall opencv-python opencv-python-headless -y<br>pip install opencv-python==4.9.0.80<br></code></pre></td></tr></table></figure></p>
+<h2 id="启动">启动</h2>
+<p>openVLA通过LoRA（r=32）独立对四个LIBERO任务组进行了微调：LIBERO-Spatial、LIBERO-Object、LIBERO-Goal和LIBERO-10。我们只复现LIBERO-Spatial</p>
+<h3 id="下载数据集到本地">下载数据集到本地</h3>
+<p>查看<a
+href="https://jiang-zixian.github.io/2025/11/13/%E8%A7%A3%E5%86%B3%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5huggingface%E9%97%AE%E9%A2%98/">huggingface数据集下载教程</a>，下载<code>openvla/openvla-7b-finetuned-libero-spatial</code>数据集</p>
+<h3 id="执行启动">执行启动</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Launch LIBERO-Spatial evals</span><br><span class="hljs-built_in">cd</span> openvla<br>python experiments/robot/libero/run_libero_eval.py \<br>  --model_family openvla \<br>  --pretrained_checkpoint openvla/openvla-7b-finetuned-libero-spatial \<br>  --task_suite_name libero_spatial \<br>  --center_crop True<br><span class="hljs-comment">#注意要将模型地址修改为本地存放的地址</span><br></code></pre></td></tr></table></figure>
+<h3 id="查看运行结果">查看运行结果</h3>
+<p>到log中指定的路径看mp4视频即可</p>
 
                 
               </div>
@@ -387,32 +314,13 @@ region（潜空间没有见过）</li>
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" class="print-no-link">#理论学习</a>
+        <a href="/tags/%E5%AE%9E%E8%B7%B5%E6%8A%80%E6%9C%AF/" class="print-no-link">#实践技术</a>
+      
+        <a href="/tags/EAI/" class="print-no-link">#EAI</a>
       
     </div>
   
@@ -424,8 +332,8 @@ region（潜空间没有见过）</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>利用VAE做异常检测</div>
-      <div>https://jiang-zixian.github.io/2025/11/21/利用VAE做异常检测/</div>
+      <div>openVLA复现记录</div>
+      <div>https://jiang-zixian.github.io/2025/12/16/openVLA复现记录/</div>
     </div>
     <div class="license-meta">
       
@@ -437,7 +345,7 @@ region（潜空间没有见过）</li>
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 21, 2025</div>
+          <div>December 16, 2025</div>
         </div>
       
       
@@ -469,18 +377,12 @@ region（潜空间没有见过）</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/12/16/openVLA%E5%A4%8D%E7%8E%B0%E8%AE%B0%E5%BD%95/" title="openVLA复现记录">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">openVLA复现记录</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/11/13/%E8%A7%A3%E5%86%B3%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5huggingface%E9%97%AE%E9%A2%98/" title="解决无法连接huggingface问题">
-                        <span class="hidden-mobile">解决无法连接huggingface问题</span>
+                      <a href="/2025/11/21/%E5%88%A9%E7%94%A8VAE%E5%81%9A%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" title="利用VAE做异常检测">
+                        <span class="hidden-mobile">利用VAE做异常检测</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
